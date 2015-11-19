@@ -1,4 +1,4 @@
-package ktyminski.JUDprojekt1;
+package ktyminski.JUDprojekt1.domain;
 
 public class Mieszkania {
 	private int idMieszkania;
