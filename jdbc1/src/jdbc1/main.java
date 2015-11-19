@@ -14,7 +14,7 @@ public class main {
 		// TODO Auto-generated method stub
 		
 		try {
-			polaczenie=DriverManager.getConnection("jdbc:mysql://localhost:3306/wynajem","root","");
+			polaczenie=DriverManager.getConnection("jdbc:mysql://localhost:3306/mieszkania","root","");
 			statement=polaczenie.createStatement();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
