@@ -13,8 +13,8 @@ public class Mieszkania {
 			int mieszkanie, int czynsz) {
 		super();
 		this.idMieszkania = idMieszkania;
-		Wlasciciel_id = wlasciciel_id;
-		Wynajmujacy_id = wynajmujacy_id;
+		this.Wlasciciel_id = wlasciciel_id;
+		this.Wynajmujacy_id = wynajmujacy_id;
 		this.ulica = ulica;
 		this.budynek = budynek;
 		this.mieszkanie = mieszkanie;
@@ -24,6 +24,13 @@ public class Mieszkania {
 	
 	
 	
+	public Mieszkania() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+
 	public int getIdMieszkania() {
 		return idMieszkania;
 	}
