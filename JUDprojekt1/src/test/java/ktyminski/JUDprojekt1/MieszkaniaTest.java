@@ -58,6 +58,8 @@ public class MieszkaniaTest {
 		    	MieszkaniaManager.wyczyscbazemieszkania();
 		    	assertEquals(MieszkaniaManager.mieszkaniaWyswietl().get(0).getIdMieszkania(), 0);
 		}
+	 
+	 
  
 	 @Test
 	 public void edytowanieTest(){
