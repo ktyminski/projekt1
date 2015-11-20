@@ -8,15 +8,15 @@ public class MieszkaniaManager {
 	
 	static Connection polaczenie;
 	static Statement statement;
-//	
-//		public static void polaczenie(){
-//			try {
-//				polaczenie = DriverManager.getConnection("jdbc:mysql://localhost:3306/mieszkania", "root", "admin");
-//				statement = polaczenie.createStatement();
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		}
+	
+		public static void polaczenie(){
+			try {
+				polaczenie = DriverManager.getConnection("jdbc:mysql://localhost:3306/mieszkania", "root", "admin");
+				statement = polaczenie.createStatement();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		public static Connection getConnection(){	
 			try {
@@ -31,7 +31,7 @@ public class MieszkaniaManager {
 		public static int addmieszkania(Mieszkania mieszkania){	
 			int count = 0;
 			try {
-				PreparedStatement addmieszkaniaStmt = polaczenie.prepareStatement("INSERT INTO mieszkania (id_mieszkania, odbiorca_id, nadawca_id, informacje) VALUES (?, ?, ?, ?)");
+				PreparedStatement addmieszkaniaStmt = polaczenie.prepareStatement("INSERT INTO mieszkania (idMieszkania, Wlasciciel_id, Wynajmujacy_id, Ulica, Budynek, Mieszkanie, Czynsz) VALUES (?, ?, ?, ?,?,?,?)");
 				addmieszkaniaStmt.setInt(1, mieszkania.getIdMieszkania());
 				addmieszkaniaStmt.setInt(2, mieszkania.getWlasciciel_id());
 				addmieszkaniaStmt.setInt(3, mieszkania.getWynajmujacy_id());
@@ -113,30 +113,32 @@ public class MieszkaniaManager {
 	        }
 	    }
 
-		public static void recHasPack(Mieszkania mieszkania){
+		public static int WynajmujacyMieszkanie(Mieszkania mieszkania){
+			int count = 0;
 			try {
 				PreparedStatement addmieszkaniaStmt = polaczenie.prepareStatement("UPDATE mieszkania SET Wynajmujacy_id=? WHERE idMieszkania=?;");
 				addmieszkaniaStmt.setInt(1, mieszkania.getWynajmujacy_id());
 				addmieszkaniaStmt.setInt(2, mieszkania.getIdMieszkania());
-				addmieszkaniaStmt.executeUpdate();
+				count = addmieszkaniaStmt.executeUpdate();
 				
 				
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			return count;
 		}
 
-		public static void recsPacks(Mieszkania mieszkania){
+		public static void WynajmujacyMieszkania(Mieszkania mieszkania){
 			try {
-				String query = "SELECT * FROM mieszkania WHERE Wlasciciel_id=?;";
+				String query = "SELECT * FROM mieszkania WHERE Wynajmujacy_id=?;";
 				PreparedStatement addmieszkaniaStmt = polaczenie.prepareStatement(query);
 				addmieszkaniaStmt.setInt(1, mieszkania.getWlasciciel_id());
 				ResultSet rs = addmieszkaniaStmt.executeQuery();
 				
 				
 				while(rs.next()){
-					System.out.println(rs.getString("idMieszkania"));	
+				
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
