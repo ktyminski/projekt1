@@ -51,26 +51,47 @@ public class MieszkaniaManager {
 
 		public static ArrayList<Mieszkania> mieszkaniaWyswietl(){
 			ArrayList<Mieszkania> mieszkania = new ArrayList<Mieszkania>();
-			Mieszkania m = new Mieszkania();
+			Mieszkania mieszk = new Mieszkania();
 			
 			try {
 				ResultSet rs = statement.executeQuery("select * from mieszkania");
 			
 				while(rs.next()){
-					m.setIdMieszkania(rs.getInt("idMieszkania"));
-					m.setWlasciciel_id(rs.getInt("Wlasciciel_id"));
-					m.setWynajmujacy_id(rs.getInt("Wynajmujacy_id"));
-					m.setUlica(rs.getString("Ulica"));
-					m.setBudynek(rs.getInt("Budynek"));
-					m.setMieszkanie(rs.getInt("Mieszkanie"));
-					m.setCzynsz(rs.getInt("Czynsz"));
+					mieszk.setIdMieszkania(rs.getInt("idMieszkania"));
+					mieszk.setWlasciciel_id(rs.getInt("Wlasciciel_id"));
+					mieszk.setWynajmujacy_id(rs.getInt("Wynajmujacy_id"));
+					mieszk.setUlica(rs.getString("Ulica"));
+					mieszk.setBudynek(rs.getInt("Budynek"));
+					mieszk.setMieszkanie(rs.getInt("Mieszkanie"));
+					mieszk.setCzynsz(rs.getInt("Czynsz"));
 				}
-				mieszkania.add(m);
+				mieszkania.add(mieszk);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			return mieszkania;
 	}
+		
+		public static int deletemieszkania(Mieszkania mieszkania){ 
+			int count = 0;
+			try {
+				PreparedStatement addmieszkaniaStmt = polaczenie.prepareStatement("DELETE FROM mieszkania WHERE idMieszkania=?;");
+				addmieszkaniaStmt.setInt(1, mieszkania.getIdMieszkania());
+				count = addmieszkaniaStmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return count;
+		}
+		
+		public static void wyczyscbazemieszkania() { 
+	        try {
+	        	PreparedStatement clearmieszkania = polaczenie.prepareStatement("delete from mieszkania");
+	        	clearmieszkania.executeUpdate();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
 
 		public static int editmieszkania(Mieszkania mieszkania) {   
 			 int count = 0;
@@ -93,26 +114,9 @@ public class MieszkaniaManager {
 						return count;
 					}
 				
-		public static int delmieszkania(Mieszkania mieszkania){ 
-			int count = 0;
-			try {
-				PreparedStatement addmieszkaniaStmt = polaczenie.prepareStatement("DELETE FROM mieszkania WHERE idMieszkania=?;");
-				addmieszkaniaStmt.setInt(1, mieszkania.getIdMieszkania());
-				count = addmieszkaniaStmt.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			return count;
-		}
 		
-		public static void clearmieszkania() { 
-	        try {
-	        	PreparedStatement clearmieszkania = polaczenie.prepareStatement("delete from mieszkania");
-	        	clearmieszkania.executeUpdate();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
+		
+		
 
 		public static int WynajmujacyMieszkanie(Mieszkania mieszkania){
 			int count = 0;

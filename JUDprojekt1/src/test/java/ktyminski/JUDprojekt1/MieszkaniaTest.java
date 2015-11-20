@@ -34,15 +34,35 @@ public class MieszkaniaTest {
 	 @Test
 	 public void dodawanieTest(){
 		 	MieszkaniaManager.polaczenie();
-	       MieszkaniaManager.clearmieszkania();
+	       MieszkaniaManager.wyczyscbazemieszkania();
 	        assertEquals(MieszkaniaManager.addmieszkania(getMieszkanie()), 1);
 	       assertEquals(MieszkaniaManager.mieszkaniaWyswietl().size(), 1);
 	 }
+	 
+	 @Test
+		public void usuwanieTest(){
+				MieszkaniaManager.polaczenie();
+			 	MieszkaniaManager.wyczyscbazemieszkania();
+		    	assertEquals(MieszkaniaManager.addmieszkania(getMieszkanie()), 1);
+		        assertEquals(MieszkaniaManager.mieszkaniaWyswietl().size(), 1);
+		        assertEquals(MieszkaniaManager.deletemieszkania(getMieszkanie()) , 1);
+		        assertFalse(MieszkaniaManager.mieszkaniaWyswietl().contains(getMieszkanie()));
+		}
+	 
+	 @Test
+		public void wyczyscbazeTest(){
+			 	MieszkaniaManager.polaczenie();
+			 	MieszkaniaManager.wyczyscbazemieszkania();
+		    	assertEquals(MieszkaniaManager.addmieszkania(getMieszkanie()), 1);
+		        assertEquals(MieszkaniaManager.mieszkaniaWyswietl().size(), 1);
+		    	MieszkaniaManager.wyczyscbazemieszkania();
+		    	assertEquals(MieszkaniaManager.mieszkaniaWyswietl().get(0).getIdMieszkania(), 0);
+		}
  
 	 @Test
 	 public void edytowanieTest(){
 		 	MieszkaniaManager.polaczenie();
-	        MieszkaniaManager.clearmieszkania();
+	        MieszkaniaManager.wyczyscbazemieszkania();
 	        MieszkaniaManager.addmieszkania(getMieszkanie());
 	        
 	        Mieszkania nowemieszkania = new Mieszkania();
@@ -66,30 +86,14 @@ public class MieszkaniaTest {
 	        
 	 }
  
-	@Test
-	public void clearTest(){
-		 	MieszkaniaManager.polaczenie();
-		 	MieszkaniaManager.clearmieszkania();
-	    	assertEquals(MieszkaniaManager.addmieszkania(getMieszkanie()), 1);
-	        assertEquals(MieszkaniaManager.mieszkaniaWyswietl().size(), 1);
-	    	MieszkaniaManager.clearmieszkania();
-	    	assertEquals(MieszkaniaManager.mieszkaniaWyswietl().get(0).getIdMieszkania(), 0);
-	}
+
 	       
-	@Test
-	public void deleteTest(){
-			MieszkaniaManager.polaczenie();
-		 	MieszkaniaManager.clearmieszkania();
-	    	assertEquals(MieszkaniaManager.addmieszkania(getMieszkanie()), 1);
-	        assertEquals(MieszkaniaManager.mieszkaniaWyswietl().size(), 1);
-	        assertEquals(MieszkaniaManager.delmieszkania(getMieszkanie()) , 1);
-	        assertFalse(MieszkaniaManager.mieszkaniaWyswietl().contains(getMieszkanie()));
-	}
+	
 	
 	@Test
 	public void wynajmujacyMieszkanie(){
 			MieszkaniaManager.polaczenie();
-	        MieszkaniaManager.clearmieszkania();
+	        MieszkaniaManager.wyczyscbazemieszkania();
 	        MieszkaniaManager.addmieszkania(getMieszkanie());
 	        
 	        Mieszkania nowamieszkania = new Mieszkania();
