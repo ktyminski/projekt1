@@ -75,7 +75,7 @@ public class MieszkaniaManager {
 		public static int editmieszkania(Mieszkania mieszkania) {   
 			 int count = 0;
 						try {
-							PreparedStatement addmieszkaniaStmt = polaczenie.prepareStatement("UPDATE mieszkania SET Wlasciciel_id=?, Wynajmujacy_id=?,ulica=?,budynek=?,mieszkanie=?,Czynsz=? WHERE idMieszkania=?;");
+							PreparedStatement addmieszkaniaStmt = polaczenie.prepareStatement("UPDATE mieszkania SET Wlasciciel_id=?, Wynajmujacy_id=?, ulica=?, budynek=?, mieszkanie=?, Czynsz=? WHERE idMieszkania=?;");
 							
 							addmieszkaniaStmt.setInt(1, mieszkania.getWlasciciel_id());
 							addmieszkaniaStmt.setInt(2, mieszkania.getWynajmujacy_id());
@@ -84,6 +84,7 @@ public class MieszkaniaManager {
 							addmieszkaniaStmt.setInt(5, mieszkania.getMieszkanie());
 							addmieszkaniaStmt.setInt(6, mieszkania.getCzynsz());
 							addmieszkaniaStmt.setInt(7, mieszkania.getIdMieszkania());
+							count = addmieszkaniaStmt.executeUpdate();
 							
 						} catch (SQLException e) {
 							e.printStackTrace();
@@ -104,7 +105,7 @@ public class MieszkaniaManager {
 			return count;
 		}
 		
-		public static void clearmieszkania() { //tested
+		public static void clearmieszkania() { 
 	        try {
 	        	PreparedStatement clearmieszkania = polaczenie.prepareStatement("delete from mieszkania");
 	        	clearmieszkania.executeUpdate();
@@ -116,11 +117,12 @@ public class MieszkaniaManager {
 		public static int WynajmujacyMieszkanie(Mieszkania mieszkania){
 			int count = 0;
 			try {
+				PreparedStatement addmieszkaniaStmt2 = polaczenie.prepareStatement("SET FOREIGN_KEY_CHECKS=0;");
 				PreparedStatement addmieszkaniaStmt = polaczenie.prepareStatement("UPDATE mieszkania SET Wynajmujacy_id=? WHERE idMieszkania=?;");
 				addmieszkaniaStmt.setInt(1, mieszkania.getWynajmujacy_id());
 				addmieszkaniaStmt.setInt(2, mieszkania.getIdMieszkania());
+				addmieszkaniaStmt2.executeUpdate();
 				count = addmieszkaniaStmt.executeUpdate();
-				
 				
 				
 			} catch (SQLException e) {
