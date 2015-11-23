@@ -115,10 +115,11 @@ public class MieszkaniaTest {
 		        
 		        ArrayList<Mieszkania> mieszkania = new ArrayList<Mieszkania>();
 		        mieszkania = MieszkaniaManager.Wynajmujacymieszkania(getMieszkanie());
+		        
+		        System.out.println(mieszkania.size());
 		        for(int i= 0; i<mieszkania.size(); i++){
-		        	System.out.println(mieszkania.get(i).getWlasciciel_id()); 
-		        	System.out.println("elo"); // dopracowac
-		            assertEquals(mieszkania.get(i).getWlasciciel_id(), "2");
+		        	
+		            assertEquals(mieszkania.get(i).getWlasciciel_id(), 2);
 		            }
 		        	
 		}
@@ -128,11 +129,11 @@ public class MieszkaniaTest {
 	        MieszkaniaManager.wyczyscbazemieszkania();
 	        MieszkaniaManager.addmieszkania(getMieszkanie());
 	        
-	        Mieszkania nowamieszkania = new Mieszkania();
-	        nowamieszkania.setIdMieszkania(MieszkaniaManager.mieszkaniaWyswietl().get(0).getIdMieszkania()); 
-	        nowamieszkania.setWynajmujacy_id(3);
+	        Mieszkania newmieszkania = new Mieszkania();
+	        newmieszkania.setIdMieszkania(MieszkaniaManager.mieszkaniaWyswietl().get(0).getIdMieszkania()); 
+	        newmieszkania.setWynajmujacy_id(3);
 	        
-	        assertEquals(MieszkaniaManager.WynajmujacyMieszkanie(nowamieszkania), 1);
+	        assertEquals(MieszkaniaManager.WynajmujacyMieszkanie(newmieszkania), 1);
 	        assertEquals(MieszkaniaManager.mieszkaniaWyswietl().get(0).getIdMieszkania(), 5);
 	        assertEquals(MieszkaniaManager.mieszkaniaWyswietl().get(0).getWynajmujacy_id(), 3);
 	        

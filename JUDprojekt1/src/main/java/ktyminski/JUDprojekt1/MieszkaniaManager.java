@@ -148,6 +148,8 @@ public class MieszkaniaManager {
 					mieszk1.setBudynek(rs.getInt("Budynek"));
 					mieszk1.setMieszkanie(rs.getInt("Mieszkanie"));
 					mieszk1.setCzynsz(rs.getInt("Czynsz"));
+					
+					drugiemieszkania.add(mieszk1);
 				}
 				
 				
