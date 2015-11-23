@@ -2,6 +2,7 @@ package ktyminski.JUDprojekt1;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -23,6 +24,18 @@ public class MieszkaniaTest {
 	        
 		 return mieszkania1;
 	 }
+	public Mieszkania getMieszkanienext(){
+		 Mieszkania mieszkania1 = new Mieszkania();
+	        mieszkania1.setIdMieszkania(2);
+	        mieszkania1.setWlasciciel_id(3);
+	        mieszkania1.setWynajmujacy_id(2);
+	        mieszkania1.setUlica("kapliczna");
+	        mieszkania1.setBudynek(36); 
+	        mieszkania1.setMieszkanie(54); 
+	        mieszkania1.setCzynsz(1278); 
+	        
+		 return mieszkania1;
+	 }
 	 
 
 	 @Test
@@ -33,7 +46,7 @@ public class MieszkaniaTest {
 	 
 	 @Test
 	 public void dodawanieTest(){
-		 	MieszkaniaManager.polaczenie();
+		 	MieszkaniaManager.getConnection();
 	       MieszkaniaManager.wyczyscbazemieszkania();
 	        assertEquals(MieszkaniaManager.addmieszkania(getMieszkanie()), 1);
 	       assertEquals(MieszkaniaManager.mieszkaniaWyswietl().size(), 1);
@@ -41,7 +54,7 @@ public class MieszkaniaTest {
 	 
 	 @Test
 		public void usuwanieTest(){
-				MieszkaniaManager.polaczenie();
+				MieszkaniaManager.getConnection();
 			 	MieszkaniaManager.wyczyscbazemieszkania();
 		    	assertEquals(MieszkaniaManager.addmieszkania(getMieszkanie()), 1);
 		        assertEquals(MieszkaniaManager.mieszkaniaWyswietl().size(), 1);
@@ -51,7 +64,7 @@ public class MieszkaniaTest {
 	 
 	 @Test
 		public void wyczyscbazeTest(){
-			 	MieszkaniaManager.polaczenie();
+			 	MieszkaniaManager.getConnection();
 			 	MieszkaniaManager.wyczyscbazemieszkania();
 		    	assertEquals(MieszkaniaManager.addmieszkania(getMieszkanie()), 1);
 		        assertEquals(MieszkaniaManager.mieszkaniaWyswietl().size(), 1);
@@ -63,7 +76,7 @@ public class MieszkaniaTest {
  
 	 @Test
 	 public void edytowanieTest(){
-		 	MieszkaniaManager.polaczenie();
+		 	MieszkaniaManager.getConnection();
 	        MieszkaniaManager.wyczyscbazemieszkania();
 	        MieszkaniaManager.addmieszkania(getMieszkanie());
 	        
@@ -88,13 +101,30 @@ public class MieszkaniaTest {
 	        
 	 }
  
-
+   
 	       
 	
-	
+	 @Test
+		public void WyswietlanieTest(){
+		 		MieszkaniaManager.getConnection();
+		 		MieszkaniaManager.wyczyscbazemieszkania();
+		 		
+		 				 		
+		 		MieszkaniaManager.addmieszkania(getMieszkanie());	
+		 		MieszkaniaManager.addmieszkania(getMieszkanienext());	
+		        
+		        ArrayList<Mieszkania> mieszkania = new ArrayList<Mieszkania>();
+		        mieszkania = MieszkaniaManager.Wynajmujacymieszkania(getMieszkanie());
+		        for(int i= 0; i<mieszkania.size(); i++){
+		        	System.out.println(mieszkania.get(i).getWlasciciel_id()); 
+		        	System.out.println("elo"); // dopracowac
+		            assertEquals(mieszkania.get(i).getWlasciciel_id(), "2");
+		            }
+		        	
+		}
 	@Test
 	public void wynajmujacyMieszkanie(){
-			MieszkaniaManager.polaczenie();
+			MieszkaniaManager.getConnection();
 	        MieszkaniaManager.wyczyscbazemieszkania();
 	        MieszkaniaManager.addmieszkania(getMieszkanie());
 	        
@@ -107,6 +137,7 @@ public class MieszkaniaTest {
 	        assertEquals(MieszkaniaManager.mieszkaniaWyswietl().get(0).getWynajmujacy_id(), 3);
 	        
 	}
+	//
 }
 
 

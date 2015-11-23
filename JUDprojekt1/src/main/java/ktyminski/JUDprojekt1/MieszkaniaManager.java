@@ -9,14 +9,6 @@ public class MieszkaniaManager {
 	static Connection polaczenie;
 	static Statement statement;
 	
-		public static void polaczenie(){
-			try {
-				polaczenie = DriverManager.getConnection("jdbc:mysql://localhost:3306/mieszkania", "root", "admin");
-				statement = polaczenie.createStatement();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
 		
 		public static Connection getConnection(){	
 			try {
@@ -121,6 +113,8 @@ public class MieszkaniaManager {
 		public static int WynajmujacyMieszkanie(Mieszkania mieszkania){
 			int count = 0;
 			try {
+				
+			
 				PreparedStatement addmieszkaniaStmt2 = polaczenie.prepareStatement("SET FOREIGN_KEY_CHECKS=0;");
 				PreparedStatement addmieszkaniaStmt = polaczenie.prepareStatement("UPDATE mieszkania SET Wynajmujacy_id=? WHERE idMieszkania=?;");
 				addmieszkaniaStmt.setInt(1, mieszkania.getWynajmujacy_id());
@@ -134,21 +128,35 @@ public class MieszkaniaManager {
 			}
 			return count;
 		}
-
-		public static void WynajmujacyMieszkania(Mieszkania mieszkania){
+		
+		public static ArrayList<Mieszkania> Wynajmujacymieszkania(Mieszkania mieszk){
+			ArrayList<Mieszkania> drugiemieszkania = new ArrayList<Mieszkania>();
+			Mieszkania mieszk1;
+			mieszk1 = new Mieszkania();
 			try {
-				String query = "SELECT * FROM mieszkania WHERE Wynajmujacy_id=?;";
-				PreparedStatement addmieszkaniaStmt = polaczenie.prepareStatement(query);
-				addmieszkaniaStmt.setInt(1, mieszkania.getWlasciciel_id());
-				ResultSet rs = addmieszkaniaStmt.executeQuery();
+				String query = "SELECT * FROM Mieszkania WHERE Wlasciciel_id=?;";
 				
-				
+				PreparedStatement addMieszkaniaStmt = polaczenie.prepareStatement(query);
+				addMieszkaniaStmt.setInt(1, mieszk.getWlasciciel_id());
+				ResultSet rs = addMieszkaniaStmt.executeQuery();
 				while(rs.next()){
-				
+					
+					mieszk1.setIdMieszkania(rs.getInt("idMieszkania"));
+					mieszk1.setWlasciciel_id(rs.getInt("Wlasciciel_id"));
+					mieszk1.setWynajmujacy_id(rs.getInt("Wynajmujacy_id"));
+					mieszk1.setUlica(rs.getString("Ulica"));
+					mieszk1.setBudynek(rs.getInt("Budynek"));
+					mieszk1.setMieszkanie(rs.getInt("Mieszkanie"));
+					mieszk1.setCzynsz(rs.getInt("Czynsz"));
 				}
+				
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			return drugiemieszkania;
 		}
+
+
 
 }
